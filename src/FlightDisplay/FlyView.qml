@@ -407,23 +407,25 @@ Item {
             _satCount = _activeVehicle.gps.count.rawValue
             _satPDOP = _activeVehicle.gps.lock.rawValue
 
-            var breach_val = breachDetection()
-            if (breach_val.level > -1 && canShowBreachAlert) {
-                console.log("VIOLACAO DE ESPAÇO AEREO NÍVEL ", breach_val.level + 1)
+            if (_geoFenceController.polygons.count.valueOf() == 3){ //Só verifica se tem 3 areas certinho
+                var breach_val = breachDetection()
+                if (breach_val.level > -1 && canShowBreachAlert) {
+                    console.log("VIOLACAO DE ESPAÇO AEREO NÍVEL ", breach_val.level + 1)
 
-                if (breach_val.level === 0) {
-                    popUp_breachAlert = "Invasão do Volume de Contingência!"
-                    _breachAlertColor = "Yellow"
-                }
-                if (breach_val.level === 1) {
-                    popUp_breachAlert = "Invasão do Volume de Ground Risk Buffer!"
-                    _breachAlertColor = "Orange"
-                }
+                    if (breach_val.level === 0) {
+                        popUp_breachAlert = "Invasão do Volume de Contingência!"
+                        _breachAlertColor = "Yellow"
+                    }
+                    if (breach_val.level === 1) {
+                        popUp_breachAlert = "Invasão do Volume de Ground Risk Buffer!"
+                        _breachAlertColor = "Orange"
+                    }
 
-                breachAlertPopup.open()
-                breachAlertPopup.visible = true
-                canShowBreachAlert = false
-                breachCooldownTimer.start()
+                    breachAlertPopup.open()
+                    breachAlertPopup.visible = true
+                    canShowBreachAlert = false
+                    breachCooldownTimer.start()
+                }
             }
 
             // console.log(_activeVehicle.rcRSSI.valueOf())
