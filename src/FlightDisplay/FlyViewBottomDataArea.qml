@@ -24,6 +24,7 @@ Item {
     property real battery1Current: 0
 
     property real gasolinePct: 0
+    property real gasolineL: 0
     property real generatorCurrent: 0
 
     property real satCount: 0
@@ -43,11 +44,11 @@ Item {
     property bool _selected_rotor_6
     Binding{
         target: bottomDataArea
-        property: "_gasolina"
+        property: "gasolineL"
         value: {
             if (!activeVehicle) return 0
             if (activeVehicle.batteries.count <= 0) return 0
-            return activeVehicle.batteries.get(2).voltage.value
+            return activeVehicle.batteries.get(1).voltage.value
         }
     }
     Rectangle {
@@ -229,7 +230,7 @@ Item {
         anchors.fill: textBoxGasolinePercentage
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        text: _gasolina.toString() + "L"
+        text: gasolineL.toString() + "L"
         font.bold: true
         color: "white"
         visible: textBoxGasolinePercentage.visible

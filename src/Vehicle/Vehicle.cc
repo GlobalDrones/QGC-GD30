@@ -1721,7 +1721,8 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
             TEMP1,
             TEMP2,
             TEMP3,
-            TEMPGD25
+            TEMPGD25,
+            REMAIN_SECS
         };
 
         mavlink_named_value_float_t msg_nvf;
@@ -1731,6 +1732,9 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
         else if (strncmp(msg_nvf.name, "DLE_C1", 10) == 0) id = TEMP2;
         else if (strncmp(msg_nvf.name, "DLE_C2", 10) == 0) id = TEMP3;
         else if (strncmp(msg_nvf.name, "DLE_RPM", 10) == 0) id = TEMPGD25;
+        else if (strncmp(msg_nvf.name, "REMAIN_SEC", 10) == 0) id = REMAIN_SECS;
+        else if (strncmp(msg_nvf.name, "REMAIN_SE", 10) == 0) id = REMAIN_SECS;
+        else if (strncmp(msg_nvf.name, "REMAIN_SECS", 10) == 0) id = REMAIN_SECS;
 
         switch(id) {
         case TEMP1:
@@ -1747,6 +1751,9 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
             break;
         case TEMPGD25:
             _gd60_Sensor1Fact.setRawValue(msg_nvf.value);
+            break;
+        case REMAIN_SECS:
+            _gd30_remainsecsFact.setRawValue(msg_nvf.value);
             break;
         default:
             //qWarning() << "NAMED_VALUE_FLOAT RECEBIDO: "<<msg_nvf.value;

@@ -81,7 +81,6 @@ Item {
     property var _current_bateria_2:  0
 
     property var _current_generator: 0
-    property real _gasolina: 50//_activeVehicle.batteries.get(1).voltage (P/ GD25)
 
     property int _battery1Index: _GD60? 0:2
     property int _battery2Index: _GD60? 1:0
@@ -325,30 +324,6 @@ Item {
     function accelerationPercentageToRadius(percentage){
         return percentage*0.015
 
-    }
-
-    Timer{
-        id: gasolineValuesUpdater
-        interval: 100
-        running: true
-        repeat: true
-
-        onTriggered:{
-            _gasolina = _activeVehicle.batteries.get(_gasolineIndex).percentRemaining.value
-            horas_restantes = Math.floor((7200*(_gasolina/100))/3600)
-            minutos_restantes = Math.floor(((7200*(_gasolina/100))%3600)/60)
-            segundos_restantes = (7200 * (_gasolina/100))%60
-
-
-
-            if(horas_restantes<10) {horas_restantes_string = "0"+horas_restantes.toString()}
-            else {horas_restantes_string = horas_restantes.toString()}
-            if(minutos_restantes < 10){ minutos_restantes_string = "0" +minutos_restantes.toString()}
-            else {minutos_restantes_string = minutos_restantes.toString()}
-            if(segundos_restantes <10) {segundos_restantes_string = "0" + segundos_restantes.toString()}
-            else {segundos_restantes_string = segundos_restantes.toString()}
-
-        }
     }
 
     Timer{

@@ -65,7 +65,8 @@ Item {
         onTriggered: {
             // Supondo que você agora receba os segundos diretamente (ex: _segundosTotais)
             // Se segundos_totais vier em ponto flutuante, use Math.floor() para evitar decimais nos segundos
-            var segundosTotais = Math.floor(_activeVehicle.gd30_remainsecs.value)
+            var segundosTotais = Math.floor(_activeVehicle.gd30_remainsecs.rawValue.toFixed(0))
+            console.log("tempo: ", segundosTotais)
 
             horas_restantes = Math.floor(segundosTotais / 3600)
             minutos_restantes = Math.floor((segundosTotais % 3600) / 60)
